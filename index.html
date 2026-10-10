@@ -18,14 +18,40 @@
   <div class="wrap">
     <div class="top-bar">
       <a class="wordmark" href="./">8x <em>— the human company</em></a>
-      <nav class="top-nav" aria-label="site">
-        <a href="manifesto.html" class="hide-s">manifesto</a>
-        <a href="team.html">the people</a>
-        <a class="ext" href="https://www.8x.careers/join" target="_blank" rel="noopener">open roles</a>
-      </nav>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu"><span class="menu-text">menu</span><svg class="menu-dot" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="11" fill="none" stroke="currentColor" stroke-width="5.5"/></svg></button>
     </div>
   </div>
 </header>
+
+<div class="menu" id="menu" hidden>
+  <div class="wrap">
+    <div class="top-bar">
+      <a class="wordmark" href="./">8x <em>— the human company</em></a>
+      <button class="menu-btn" id="menu-close" aria-expanded="true" aria-controls="menu"><span class="menu-text">close</span><svg class="menu-dot" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="11" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+  <div class="menu-body">
+    <div class="wrap">
+      <nav class="menu-grid" aria-label="site">
+        <ul class="menu-ul">
+          <li><a class="menu-link" href="./" aria-current="page">8x — the human company</a></li>
+          <li><a class="menu-link" href="manifesto.html">manifesto</a></li>
+          <li><a class="menu-link" href="team.html">the people</a></li>
+        </ul>
+        <ul class="menu-ul">
+          <li><a class="menu-link menu-ext" href="https://www.8x.careers/join" target="_blank" rel="noopener">open roles</a></li>
+          <li><a class="menu-link menu-ext" href="https://8x.social" target="_blank" rel="noopener">8x.social</a></li>
+          <li><a class="menu-link menu-ext" href="https://8x.business" target="_blank" rel="noopener">8x.business</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="menu-foot">
+    <div class="wrap">
+      <span>© 2026 8x — the human company</span>
+    </div>
+  </div>
+</div>
 
 <main id="main">
 

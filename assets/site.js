@@ -137,6 +137,50 @@
     if (e.key === "Escape" && lb && !lb.hidden) closeVideo();
   });
 
+  /* ---------- full-screen menu ---------- */
+
+  var menu = document.getElementById("menu");
+  var menuOpenBtn = document.getElementById("menu-btn");
+  var menuCloseBtn = document.getElementById("menu-close");
+  var menuLastFocus = null;
+
+  function openMenu() {
+    if (!menu) return;
+    menuLastFocus = document.activeElement;
+    menu.hidden = false;
+    document.body.style.overflow = "hidden";
+    if (reduceMotion) {
+      menu.classList.add("open");
+    } else {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { menu.classList.add("open"); });
+      });
+    }
+    if (menuOpenBtn) menuOpenBtn.setAttribute("aria-expanded", "true");
+    if (menuCloseBtn) menuCloseBtn.focus();
+  }
+  function closeMenu() {
+    if (!menu) return;
+    function finish() {
+      menu.hidden = true;
+      document.body.style.overflow = "";
+      if (menuLastFocus) menuLastFocus.focus();
+    }
+    if (menu.classList.contains("open") && !reduceMotion) {
+      menu.classList.remove("open");
+      window.setTimeout(finish, 230);
+    } else {
+      menu.classList.remove("open");
+      finish();
+    }
+  }
+
+  if (menuOpenBtn) menuOpenBtn.addEventListener("click", openMenu);
+  if (menuCloseBtn) menuCloseBtn.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && menu && !menu.hidden) closeMenu();
+  });
+
   /* ---------- motion: reveals, count-up, parallax, circle replay ---------- */
 
   if (!reduceMotion && "IntersectionObserver" in window) {

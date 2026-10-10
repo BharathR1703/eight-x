@@ -2,23 +2,23 @@
    paper + ink + one electric blue. serif = human voice, grotesk = company voice. */
 
 @font-face {
-  font-family: "Inter Tight";
-  src: url("inter-tight.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "Schibsted Grotesk";
+  src: url("schibsted-grotesk.woff2") format("woff2");
+  font-weight: 400 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Newsreader";
-  src: url("newsreader.woff2") format("woff2");
-  font-weight: 400 500;
+  font-family: "Instrument Serif";
+  src: url("instrument-serif.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Newsreader";
-  src: url("newsreader-italic.woff2") format("woff2");
-  font-weight: 400 500;
+  font-family: "Instrument Serif";
+  src: url("instrument-serif-italic.woff2") format("woff2");
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
@@ -34,8 +34,8 @@
   --dark-fg: #f2efe7;
   --dark-fg-60: rgba(242, 239, 231, .6);
   --dark-rule: rgba(242, 239, 231, .14);
-  --sans: "Inter Tight", system-ui, -apple-system, Arial, sans-serif;
-  --serif: "Newsreader", Georgia, serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, Arial, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
   --rule: rgba(23, 24, 26, .8);
 }
 
@@ -104,7 +104,7 @@ a { color: inherit; }
 
 .h-huge {
   font-weight: 650;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   line-height: .96;
   font-size: clamp(52px, 11.5vw, 168px);
   margin: 0;
@@ -497,10 +497,9 @@ section { padding: clamp(64px, 9vw, 128px) 0; }
 }
 .mani .aph {
   font-family: var(--serif);
-  font-size: clamp(28px, 3.8vw, 50px);
-  line-height: 1.12;
-  font-weight: 450;
-  letter-spacing: -0.015em;
+  font-size: clamp(30px, 3.9vw, 52px);
+  line-height: 1.08;
+  letter-spacing: 0;
 }
 .mani .arg {
   font-size: 16.5px;
@@ -847,7 +846,7 @@ section { padding: clamp(64px, 9vw, 128px) 0; }
   display: block;
   background: var(--paper-dim);
 }
-.founders h3 { margin: 14px 0 2px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+.founders h2 { margin: 14px 0 2px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
 .founders p { margin: 0; font-size: 14px; color: var(--ink-60); }
 
 .solo-note {

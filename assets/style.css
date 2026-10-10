@@ -804,7 +804,7 @@ body::before {
 .hero-arrow {
   position: absolute;
   left: -52px;
-  bottom: -18px;
+  bottom: 10px;
   width: 58px;
   height: 72px;
   color: var(--blue);

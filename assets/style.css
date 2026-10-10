@@ -180,20 +180,31 @@ a { color: inherit; }
 .wordmark em { font-style: normal; color: var(--ink-60); font-weight: 500; }
 .menu-btn {
   display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
+  height: 24px;
   font: inherit;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: clamp(16px, 1.7vw, 20px);
+  font-weight: 400;
+  line-height: 1;
   color: var(--ink);
   background: none;
   border: 0;
   padding: 0;
   margin: 0;
   cursor: pointer;
+  transition: color .25s ease;
 }
 .menu-btn:hover { color: var(--blue); }
-.menu-btn .menu-dot { width: 13px; height: 13px; align-self: center; }
+.menu-text { display: inline-block; overflow: hidden; line-height: 1.1; }
+.menu-text-inner {
+  display: inline-block;
+  text-shadow: 0 1.1em 0;
+  transform: translateY(0);
+  transition: transform .45s cubic-bezier(.7, 0, .3, 1);
+}
+.menu-btn:hover .menu-text-inner { transform: translateY(-100%); }
+.menu-btn .menu-dot { display: block; width: 26px; height: 26px; flex: none; overflow: visible; }
 
 @media (max-width: 640px) {
   .wordmark em { display: none; }

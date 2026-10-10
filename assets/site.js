@@ -139,6 +139,86 @@
 
   /* ---------- full-screen menu ---------- */
 
+  /* the symbol next to the menu word is a hand-drawn asterisk that
+     "boils" the way e2's does: three sketchy diameters, redrawn into
+     slightly-jittered frames and cycled, so the ink is never quite still.
+     drawn in js so the pencil-line wobble can be seeded and re-seeded
+     on every open. */
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  function randFrom(seed) { /* deterministic wobble per frame */
+    seed = (seed * 9301 + 49297) ^ (seed >> 2);
+    return ((seed % 233280) / 233280) - 0.5;
+  }
+  function sketchLine(x1, y1, x2, y2, seed) {
+    var wobble = 2.8, n = 3, k, pts = [], t, ix, iy;
+    for (k = 0; k <= n; k++) {
+      t = k / n;
+      ix = x1 + (x2 - x1) * t;
+      iy = y1 + (y2 - y1) * t;
+      if (k > 0 && k < n) {
+        var dx = x2 - x1, dy = y2 - y1, len = Math.sqrt(dx * dx + dy * dy);
+        ix += (-dy / len) * randFrom(seed + k) * wobble * 2;
+        iy += ( dx / len) * randFrom(seed + k) * wobble * 2;
+      }
+      pts.push([ix, iy]);
+    }
+    var d = "M" + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+    for (k = 1; k < n; k++) {
+      d += " Q" + pts[k][0].toFixed(1) + " " + pts[k][1].toFixed(1) +
+           " " + ((pts[k][0] + pts[k + 1][0]) / 2).toFixed(1) +
+           " " + ((pts[k][1] + pts[k + 1][1]) / 2).toFixed(1);
+    }
+    d += " L" + pts[n][0].toFixed(1) + " " + pts[n][1].toFixed(1);
+    var p = document.createElementNS(SVG_NS, "path");
+    p.setAttribute("d", d);
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke", "currentColor");
+    p.setAttribute("stroke-width", "3.2");
+    p.setAttribute("stroke-linecap", "round");
+    return p;
+  }
+  function buildAsteriskFrames(frames, seed) {
+    var out = [];
+    for (var f = 0; f < frames; f++) {
+      var g = document.createElementNS(SVG_NS, "g");
+      for (var i = 0; i < 3; i++) {
+        var a = (Math.PI / 3) * i, c = Math.cos(a) * 22, s = Math.sin(a) * 22;
+        g.appendChild(sketchLine(32 + c, 32 + s, 32 - c, 32 - s, seed + f * 17 + i * 3 + 1));
+      }
+      out.push(g);
+    }
+    return out;
+  }
+  var boiling = [];
+  function drawAsterisk(svgEl, seed) {
+    if (!svgEl) return;
+    var frames = buildAsteriskFrames(8, seed | 0);
+    svgEl.innerHTML = "";
+    svgEl.appendChild(frames[0]);
+    for (var i = 0; i < boiling.length; i++) {
+      if (boiling[i].el === svgEl) { boiling.splice(i, 1); break; }
+    }
+    if (reduceMotion) return;
+    boiling.push({ el: svgEl, frames: frames, fi: 0 });
+    if (!boiling.timer) {
+      boiling.timer = setInterval(function () {
+        if (document.hidden) return;
+        for (var i = 0; i < boiling.length; i++) {
+          var b = boiling[i];
+          b.fi = (b.fi + 1) % b.frames.length;
+          b.el.innerHTML = "";
+          b.el.appendChild(b.frames[b.fi]);
+        }
+      }, 95);
+    }
+  }
+  function redrawMenuAsterisks() {
+    Array.prototype.forEach.call(document.querySelectorAll(".menu-dot"), function (el) {
+      drawAsterisk(el, (Math.random() * 100000) | 0);
+    });
+  }
+
   var menu = document.getElementById("menu");
   var menuOpenBtn = document.getElementById("menu-btn");
   var menuCloseBtn = document.getElementById("menu-close");
@@ -149,6 +229,7 @@
     menuLastFocus = document.activeElement;
     menu.hidden = false;
     document.body.style.overflow = "hidden";
+    redrawMenuAsterisks(); /* reseed the ink, the way e2 redraws on open */
     if (reduceMotion) {
       menu.classList.add("open");
     } else {
@@ -180,6 +261,7 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && menu && !menu.hidden) closeMenu();
   });
+  redrawMenuAsterisks(); /* the header dots start boiling immediately */
 
   /* ---------- motion: reveals, count-up, parallax, circle replay ---------- */
 

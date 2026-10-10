@@ -544,7 +544,7 @@ section { padding: clamp(64px, 9vw, 128px) 0; }
   scrollbar-width: none;
 }
 .clocks::-webkit-scrollbar { display: none; }
-.clock { flex: 0 0 auto; }
+.clock { flex: 0 0 auto; display: inline-flex; align-items: baseline; gap: 10px; }
 .clock .city { font-size: 13px; color: var(--ink-60); }
 .clock .time {
   font-weight: 600;
